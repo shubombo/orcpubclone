@@ -1,0 +1,10 @@
+{
+  "hosting": {
+    "public": "dist/orcpubclone",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
