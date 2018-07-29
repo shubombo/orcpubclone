@@ -39,7 +39,7 @@ jobs:
       - run: 
           name: Run frontend tests
           command: |
-            npm run citest --code-coverage         
+            npm run citest        
             ./tmp/cc-test-reporter format-coverage -t lcov -o tmp/codeclimate.frontend.json coverage/lcov.info
       - run:
           name: Upload coverage results to Code Climate
