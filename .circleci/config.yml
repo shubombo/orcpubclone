@@ -44,7 +44,7 @@ jobs:
           command: |
             ./tmp/cc-test-reporter upload-coverage -i tmp/codeclimate.frontend.json
       - run:
-          command: npm build
+          command: npm run build
       # Cache the dist folder for the deploy job
       - save_cache:
           paths:
@@ -65,7 +65,6 @@ jobs:
           name: Deploy app to firebase
           command: |
             ls -a
-            ls -R ~/project
             ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN
 
 workflows:
