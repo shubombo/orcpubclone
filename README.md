@@ -1,6 +1,6 @@
 # Orcpubclone
  
-This is a clone of Orcpub2[https://github.com/larrychristensen/orcpub]. The goal is to recerate OrcPub2 with Augular/Firebase. Currently in development. 
+This is a clone of [Orcpub2](https://github.com/larrychristensen/orcpub). The goal is to recerate OrcPub2 with Augular/Firebase. Currently in development. 
 
 ## Development server
 
