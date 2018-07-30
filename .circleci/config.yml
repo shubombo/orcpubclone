@@ -55,6 +55,7 @@ jobs:
     docker:
       - image: circleci/node:8.9.1-browsers
     steps:
+      - checkout
       - restore_cache:
           key: v1-dependencies-{{ checksum "package.json" }}
        # dist folder that needs to be deployed
