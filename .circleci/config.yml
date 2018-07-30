@@ -76,5 +76,5 @@ workflows:
             - build
           filters:
             branches:
-              only: feature/ci
+              only: master
           
