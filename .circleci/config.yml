@@ -52,7 +52,7 @@ jobs:
       - save_cache:
           paths:
             - dist
-          key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}
+          key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
   deploy:
     working_directory: ~/project
     docker:
@@ -60,10 +60,9 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: v1-dependencies-{{ checksum "package.json" }}
-       # dist folder that needs to be deployed
-      - restore_cache:
-          key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
       - run:
           name: Deploy app to firebase
           command: |
