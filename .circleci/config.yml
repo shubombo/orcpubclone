@@ -1,0 +1,82 @@
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+version: 2
+jobs:
+  build:
+    working_directory: ~/project
+    docker:
+      - image: circleci/node:8.9.1-browsers
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/repo/tmp
+      - run:
+          name:  Download cc-test-reporter
+          command: |
+            mkdir -p tmp/
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./tmp/cc-test-reporter
+            chmod +x ./tmp/cc-test-reporter
+      - persist_to_workspace:
+          root: tmp
+          paths:
+            - cc-test-reporter
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+      - run: npm install
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}   
+      - run: npm run lint
+      - run: 
+          name: Run frontend tests
+          command: |
+            npm run citest        
+            ./tmp/cc-test-reporter format-coverage -t lcov -o tmp/codeclimate.frontend.json coverage/lcov.info
+      - run:
+          name: Upload coverage results to Code Climate
+          command: |
+            ./tmp/cc-test-reporter upload-coverage -i tmp/codeclimate.frontend.json
+      - run:
+          command: npm build
+      # Cache the dist folder for the deploy job
+      - save_cache:
+          paths:
+            - dist
+          key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}
+  deploy:
+    working_directory: ~/project
+    docker:
+      - image: circleci/node:8.9.1-browsers
+    steps:
+      - checkout
+      - restore_cache:
+          key: v1-dependencies-{{ checksum "package.json" }}
+       # dist folder that needs to be deployed
+      - restore_cache:
+          key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}
+      - run:
+          name: Deploy app to firebase
+          command: |
+            ls -a
+            ls -R ~/project
+            ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN
+
+workflows:
+  version: 2
+  build-test-and-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: feature/ci
+          
