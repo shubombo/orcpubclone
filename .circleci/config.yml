@@ -47,9 +47,9 @@ jobs:
           command: npm build
       # Cache the dist folder for the deploy job
       - save_cache:
-          key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
           paths:
-              - dist
+            - dist
+          key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
   deploy:
     working_directory: ~/project
     docker:
@@ -65,7 +65,7 @@ jobs:
           name: Deploy app to firebase
           command: |
             ls -a
-            ls -R ~/project/dist
+            ls -R ~/project
             ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN
 
 workflows:
