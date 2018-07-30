@@ -1,6 +1,6 @@
 # Orcpubclone
  
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.8.
+This is a clone of Orcpub2[https://github.com/larrychristensen/orcpub]. The goal is to recerate OrcPub2 with Augular/Firebase. Currently in development. 
 
 ## Development server
 
