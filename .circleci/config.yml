@@ -45,9 +45,6 @@ jobs:
             ./tmp/cc-test-reporter upload-coverage -i tmp/codeclimate.frontend.json
       - run:
           command: |
-#              if [ "${CIRCLE_BRANCH}" == "staging" ]; then
-#                  npm run build-qa
-#              el
               if [ "${CIRCLE_BRANCH}" == "master" ]; then
                   npm run build-prod
               else
