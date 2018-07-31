@@ -44,12 +44,12 @@ jobs:
           command: |
             ./tmp/cc-test-reporter upload-coverage -i tmp/codeclimate.frontend.json
       - run:
-          command: npm build
+          command: npm run build
       # Cache the dist folder for the deploy job
       - save_cache:
           paths:
             - dist
-          key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}
+          key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
   deploy:
     working_directory: ~/project
     docker:
@@ -58,14 +58,12 @@ jobs:
       - checkout
       - restore_cache:
           key: v1-dependencies-{{ checksum "package.json" }}
-       # dist folder that needs to be deployed
       - restore_cache:
-          key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}
+          key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
       - run:
           name: Deploy app to firebase
           command: |
-            ls -a
-            ls -R ~/project
+            echo $FIREBASE_DEPLOY_TOKEN
             ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN
 
 workflows:
@@ -78,5 +76,5 @@ workflows:
             - build
           filters:
             branches:
-              only: dev
+              only: master
           
