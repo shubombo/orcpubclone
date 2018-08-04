@@ -30,6 +30,11 @@
             "styles": [
               "src/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "./src/styles/"
+              ]
+            },
             "scripts": []
           },
           "configurations": {
@@ -80,12 +85,19 @@
             "styles": [
               "src/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "./src/styles/"
+              ]
+            },
             "scripts": [],
             "assets": [
               "src/favicon.ico",
               "src/assets",
               "src/manifest.json"
-            ]
+            ],
+            "watch": false,
+            "codeCoverage": true
           }
         },
         "lint": {

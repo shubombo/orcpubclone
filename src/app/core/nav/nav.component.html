@@ -1,0 +1,57 @@
+<header>
+  <nav>
+      <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center center">
+          <div fxFlex class="text--left">
+          <p>{{title}}</p>
+          </div>
+          <div fxFlex class="text--right">
+     <!--         <app-search-bar></app-search-bar> -->
+              <button mat-icon-button [matMenuTriggerFor]="matmenu">
+                  <mat-icon>public</mat-icon>
+              </button>
+              <mat-menu #matmenu="matMenu">
+                  <button mat-menu-item>
+                      <mat-icon>flag</mat-icon>
+                      <span>
+                          Traditional Chinese
+                      </span>
+                  </button>
+                  <button mat-menu-item>
+                      <mat-icon>flag</mat-icon>
+                      <span>
+                          Simplified Chinese
+                      </span>
+                  </button>
+                  <button mat-menu-item>
+                      <mat-icon>flag</mat-icon>
+                      <span>
+                          English
+                      </span>
+                  </button>
+                  <button mat-menu-item>
+                      <mat-icon>flag</mat-icon>
+                      <span>
+                          Español
+                      </span>
+                  </button>
+                  <button mat-menu-item>
+                      <mat-icon>flag</mat-icon>
+                      <span>
+                          Português
+                      </span>
+                  </button>
+                 <button mat-menu-item>
+                      <mat-icon>flag</mat-icon>
+                      <span>
+                          Euskera
+                      </span>
+                  </button>
+              </mat-menu>
+          </div>
+      </div>
+  </nav>
+  <section class="progress-bar">
+      <mat-progress-bar [color]="'primary'" [mode]="progressBarMode">
+      </mat-progress-bar>
+  </section>
+</header>
