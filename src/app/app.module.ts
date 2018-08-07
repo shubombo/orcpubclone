@@ -20,13 +20,15 @@ import { MatChipsModule } from '@angular/material/chips';
 
 import { LoginComponent } from './login/login.component';
 import { TestformComponent } from './testform/testform.component';
+import { NavComponent } from './nav/nav.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    TestformComponent
+    TestformComponent,
+    NavComponent
   ],
   imports: [
     BrowserModule,
